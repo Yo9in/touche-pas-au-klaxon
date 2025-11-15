@@ -3,8 +3,19 @@ namespace App\Controller;
 
 use App\Model\Utilisateur;
 
+/**
+ * Contrôleur d'authentification.
+ *
+ * Gère l'affichage du formulaire de connexion, la vérification des identifiants,
+ * et la déconnexion de l'utilisateur.
+ */
 class AuthController
-{
+{   
+    /**
+     * Affiche le formulaire de connexion.
+     *
+     * @return void
+     */
     public function loginForm()
     {
         $title = 'Connexion';
@@ -14,6 +25,14 @@ class AuthController
         require __DIR__ . '/../View/login.php';
     }
 
+    /**
+     * Traite le formulaire de connexion.
+     *
+     * Vérifie l'existence de l'utilisateur et la validité du mot de passe,
+     * puis stocke l'utilisateur en session.
+     *
+     * @return void
+     */
     public function login()
     {
         // Récupérer les données POST
@@ -29,7 +48,7 @@ class AuthController
         $userModel = new Utilisateur();
         $user = $userModel->findByEmail($email);
 
-        // ⚠️ Pour l’instant on compare en clair avec 'changeme'
+        
         if (!$user || $user['mot_de_passe'] !== $password) {
             $_SESSION['login_error'] = "Identifiants incorrects.";
             header('Location: /login');
@@ -49,6 +68,11 @@ class AuthController
         exit;
     }
 
+    /**
+     * Déconnecte l'utilisateur en supprimant la session.
+     *
+     * @return void
+     */
     public function logout()
     {
         unset($_SESSION['user']);

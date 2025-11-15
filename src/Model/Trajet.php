@@ -4,8 +4,20 @@ namespace App\Model;
 use App\Core\Database;
 use PDO;
 
+/**
+ * Modèle Trajet
+ *
+ * Gère les opérations de lecture/écriture sur la table "trajet".
+ */
+
 class Trajet
 {
+    /**
+     * Retourne les trajets futurs avec des places disponibles,
+     * accompagnés des informations d'agence et de conducteur.
+     *
+     * @return array<int, array<string, mixed>>
+     */
     public function getFutursAvecPlaces()
     {
         $pdo = Database::getConnection();
@@ -35,7 +47,12 @@ class Trajet
 
         return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
-
+    /**
+     * Crée un nouveau trajet en base.
+     *
+     * @param array<string, mixed> $data Données du trajet (clés: utilisateur_id, agences, dates, places, commentaire)
+     * @return bool true si l'insertion a réussi
+     */
     public function create(array $data)
     {
         $pdo = Database::getConnection();
@@ -65,7 +82,12 @@ class Trajet
         $stmt = $pdo->prepare($sql);
         return $stmt->execute($data);
     }
-
+    /**
+     * Retourne un trajet par son identifiant.
+     *
+     * @param int $id Identifiant du trajet
+     * @return array<string, mixed>|false Tableau associatif ou false si introuvable
+     */
     public function find($id)
     {
         $pdo = Database::getConnection();
@@ -93,6 +115,13 @@ class Trajet
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Met à jour un trajet existant.
+     *
+     * @param int $id Identifiant du trajet
+     * @param array<string, mixed> $data Données à mettre à jour
+     * @return bool true si la mise à jour a réussi
+     */
     public function update($id, array $data)
     {
         $pdo = Database::getConnection();
@@ -115,6 +144,12 @@ class Trajet
         return $stmt->execute($data);
     }
 
+    /**
+     * Supprime un trajet par son identifiant.
+     *
+     * @param int $id
+     * @return bool true si la suppression a réussi
+     */
     public function delete($id)
     {
         $pdo = Database::getConnection();

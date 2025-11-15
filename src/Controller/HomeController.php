@@ -3,8 +3,20 @@ namespace App\Controller;
 
 use App\Model\Trajet;
 
+/**
+ * Contrôleur de la page d'accueil.
+ *
+ * Affiche la liste des trajets à venir avec places disponibles.
+ * Récupère les données via le modèle Trajet et les passe à la vue home.php.
+ */
+
 class HomeController
 {
+    /**
+     * Affiche la page d'accueil avec la liste des trajets futurs.
+     *
+     * @return void
+     */
     public function index()
     {
         $trajetModel = new Trajet();

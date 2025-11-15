@@ -5,8 +5,19 @@ namespace App\Model;
 use App\Core\Database;
 use PDO;
 
+/**
+ * Modèle Agence
+ *
+ * Gère les opérations CRUD sur la table "agence".
+ */
+
 class Agence
 {
+    /**
+     * Retourne toutes les agences triées par nom.
+     *
+     * @return array<int, array<string, mixed>>
+     */
     public function all()
     {
         $pdo = Database::getConnection();
@@ -14,6 +25,12 @@ class Agence
         return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Crée une nouvelle agence en base.
+     *
+     * @param string $nom Nom de l'agence
+     * @return bool true si la création a réussi
+     */
     public function create($nom)
     {
         $pdo = Database::getConnection();
@@ -21,6 +38,12 @@ class Agence
         return $stmt->execute(['nom' => $nom]);
     }
 
+    /**
+     * Supprime une agence par son identifiant.
+     *
+     * @param int $id
+     * @return bool true si la suppression a réussi
+     */
     public function delete($id)
     {
         $pdo = Database::getConnection();

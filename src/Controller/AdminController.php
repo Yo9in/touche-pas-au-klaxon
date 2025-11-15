@@ -5,8 +5,18 @@ use App\Model\Agence;
 use App\Core\Database;
 use PDO;
 
+/**
+ * Contrôleur de la partie administrateur.
+ *
+ * Permet d'accéder au tableau de bord admin et de gérer les agences.
+ */
 class AdminController
 {
+     /**
+     * Vérifie que l'utilisateur connecté possède le rôle admin.
+     *
+     * @return void
+     */
     private function requireAdmin()
     {
         if (empty($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
@@ -16,6 +26,13 @@ class AdminController
         }
     }
 
+    /**
+     * Affiche le tableau de bord administrateur.
+     *
+     * Statistiques : nombre d'utilisateurs, d'agences, de trajets.
+     *
+     * @return void
+     */
     public function index()
     {
         $this->requireAdmin();
@@ -33,6 +50,11 @@ class AdminController
         require __DIR__ . '/../View/admin/index.php';
     }
 
+    /**
+     * Affiche la liste des agences + formulaire d'ajout.
+     *
+     * @return void
+     */
     public function agences()
     {
         $this->requireAdmin();
@@ -50,6 +72,11 @@ class AdminController
         require __DIR__ . '/../View/admin/agences.php';
     }
 
+    /**
+     * Enregistre une nouvelle agence.
+     *
+     * @return void
+     */
     public function storeAgence()
     {
         $this->requireAdmin();
@@ -75,6 +102,11 @@ class AdminController
         exit;
     }
 
+    /**
+     * Supprime une agence par son identifiant.
+     *
+     * @return void
+     */
     public function deleteAgence()
     {
         $this->requireAdmin();

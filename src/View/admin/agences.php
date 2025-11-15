@@ -5,6 +5,7 @@
     <title><?= htmlspecialchars($title ?? 'Gestion des agences') ?></title>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+          <link rel="stylesheet" href="/css/theme.css">
 </head>
 <body class="container py-4">
 
